@@ -138,6 +138,9 @@ const Index = () => {
                   );
                   // set url 
                 setURL(response.data.url)
+
+                 // set localstorage
+                  localStorage.setItem("WaifuImage",response.data.url);
                 } catch (error) {
                   // This block catches the error so it doesn't stay "Uncaught"
                   console.error("Failed to fetch image:", error);
@@ -146,12 +149,11 @@ const Index = () => {
                   setButtonLoading(false)
                   // set download to true
                   setDownloadButton(true)
+                      
                 }
         };
         
         getWaifu();
-
-  
 
     }
 
@@ -187,7 +189,7 @@ const Index = () => {
         </div>
 
 
-          <img className="defaultImg" src={URL === ''? '../assets/default.jpg' : URL} alt="default" />
+          <img className="defaultImg" src={localStorage.getItem("WaifuImage") === null?'../assets/default.jpg':`${localStorage.getItem("WaifuImage")}`} alt="default" />
           <a target="__blank" href={URL}><button disabled={!DownloadButton}><CiImageOn className="CiImageOn" /> Download</button></a>
         </div>
 
