@@ -1,5 +1,5 @@
 // scss
-import { use, useEffect, useState, type ReactNode } from "react";
+import { useState } from "react";
 import "./css/index.scss";
 
 // react icons
