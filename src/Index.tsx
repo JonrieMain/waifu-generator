@@ -1,5 +1,5 @@
 // scss
-import { useState } from "react";
+import { useState, type MouseEventHandler } from "react";
 import "./css/index.scss";
 
 // react icons
@@ -128,7 +128,7 @@ const Index = () => {
 
 
     // fetch image
-    const fetchWaifu = ()=>{
+    const fetchWaifu:MouseEventHandler<HTMLButtonElement> = ()=>{
       setButtonLoading(true)
 
               const getWaifu = async () => {
@@ -136,20 +136,25 @@ const Index = () => {
                   const response = await axios.get<urlType>(
                     `https://api.waifu.pics/${SelectType}/${SelectCategory}`
                   );
-                  // set url 
-                setURL(response.data.url)
+                    // check if response is success
+                      if(response.status === 200){
 
-                 // set localstorage
-                  localStorage.setItem("WaifuImage",response.data.url);
+                            // set url 
+                    setURL(response.data.url)
+
+                    // set localstorage
+                      localStorage.setItem("WaifuImage",response.data.url);
+
+                          // stop loading
+                      setButtonLoading(false)
+                      // set download to true
+                      setDownloadButton(true)
+
+                        }
+
                 } catch (error) {
                   // This block catches the error so it doesn't stay "Uncaught"
                   console.error("Failed to fetch image:", error);
-                }finally{
-                  // stop loading
-                  setButtonLoading(false)
-                  // set download to true
-                  setDownloadButton(true)
-                      
                 }
         };
         
